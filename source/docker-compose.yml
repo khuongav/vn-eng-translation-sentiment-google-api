@@ -1,0 +1,26 @@
+version: '2'
+services:
+  translation-service:
+    build: ./translation
+    container_name: translation
+    volumes:
+      - ./translation:/translation # mount point
+    ports:
+      - "5001:80"
+  sentiment-service:
+    build: ./sentiment_en
+    container_name: sentiment
+    volumes:
+      - ./sentiment_en:/sentiment_en # mount point
+    ports:
+      - "5002:80"
+  transensor-service:
+    build: ./transensor
+    container_name: transensor
+    volumes:
+      - ./transensor:/transensor # mount point
+    ports:
+      - "5000:80"
+    depends_on:
+      - translation-service
+      - sentiment-service

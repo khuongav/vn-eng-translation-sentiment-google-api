@@ -1,0 +1,73 @@
+- name: Docker group present
+  group:
+    name: docker
+    state: present
+  tags: [docker-ce]
+
+- name: CICD belongs to docker group
+  user:
+    name: cicd
+    group: docker
+  tags: [docker-ce]
+
+- name: Directories are present
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+  with_items:
+    - /etc/docker
+  tags: [docker-ce]
+
+- name: CentOS docker daemon config files are present
+  template:
+    src: "daemon.json"
+    dest: "/etc/docker/daemon.json"
+  register: copy_result
+  tags: [docker]
+
+- name: yum-utils is present
+  yum:
+    name: yum-utils
+  tags: [docker-ce]
+
+- name: device-mapper-persistent-data is present
+  yum:
+    name: device-mapper-persistent-data
+  tags: [docker-ce]
+
+- name: lvm2 is present
+  yum:
+    name: lvm2
+  tags: [docker-ce]
+
+- name: Add docker-ce stable repo
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+- name: Docker is present
+  yum:
+    name: docker-ce
+    state: latest
+  tags: [docker-ce]
+
+- name: Python-pip is present
+  yum: 
+    name: python-pip
+    state: present
+    disable_gpg_check: yes
+  tags: [docker]
+
+- name: Docker-py is present
+  pip: name=docker-py version=1.6.0 state=present
+  tags: [docker-ce]
+
+- name: Centos Daemon is reloaded
+  become: yes
+  command: systemctl daemon-reload
+  tags: [docker-ce]
+
+- name: Start the docker daemon 
+  service:
+    name: docker
+    state: started
+  tags: [docker-ce]

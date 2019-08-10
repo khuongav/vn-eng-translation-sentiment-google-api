@@ -1,0 +1,6 @@
+{
+    "insecure-registries" : [ "115.79.61.222:12295" ],
+    "storage-driver": "devicemapper",
+    "storage-opts": ["dm.basesize=50G"]
+}
+
