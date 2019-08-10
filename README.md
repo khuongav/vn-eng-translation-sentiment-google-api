@@ -7,4 +7,6 @@ Building an application with Microservices to translate text from Vietnamese to 
 - Sentiment
 - Translation & Sentiment  
 
-The communication protocol between services uses REST on HTTP protocol.
+The communication protocol between services uses REST on HTTP protocol.  
+
+Enable virtual development environment with Vagrant.
