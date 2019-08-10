@@ -1,7 +1,7 @@
-coverage==4.4.1
-pylint==1.7.4
-flask==0.12.2
-googletrans==2.1.4
+coverage
+pylint
+flask
+googletrans
 google-cloud
 google-cloud-language
 mock
