@@ -9,4 +9,4 @@ Building an application with Microservices to translate text from Vietnamese to 
 
 The communication protocol between services uses REST on HTTP protocol.  
 
-Enable virtual development environment with Vagrant.
+Enable virtual development environments with Vagrant.
